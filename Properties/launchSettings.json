@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "func_secured_02": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7115",
+      "launchBrowser": false
+    }
+  }
+}
