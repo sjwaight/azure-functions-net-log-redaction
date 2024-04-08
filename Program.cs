@@ -10,6 +10,7 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureLogging((hostContext, logging) =>
         {
+            logging.AddJsonConsole();
             // Enable redaction logging if configured
             if(hostContext.Configuration.GetValue<bool>("EnableRedaction", true))
             {
@@ -33,15 +34,6 @@ var host = new HostBuilder()
                         //redactionBuilder.SetFallbackRedactor<MyFallbackRedactor>();
                     });
             }
-
-            // Add redaction services
-            services.AddRedaction(redactionBuilder =>
-                    {
-                        // Assigns a redactor to use for a set of data classifications.
-                        redactionBuilder.SetRedactor<ExplicitRedactor>(new DataClassificationSet(DemoTaxonomy.SensitiveData));  
-                        // The `ErasingRedactor` is the default fallback redactor. If no redactor is configured for a data classification then the data will be erased.
-                        //redactionBuilder.SetFallbackRedactor<MyFallbackRedactor>();
-                    });
         })
     .Build();
 
